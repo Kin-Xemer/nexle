@@ -3,56 +3,47 @@ import React from 'react';
 import { StyleSheet, TouchableOpacity, useWindowDimensions } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import { styles as screenStyles } from '../../../components/Screen';
-import { Category } from '../../../redux/category/slice';
-import { NUM_CATEGORY_PER_ROW } from '../useCategoryRowList';
-import { Colors } from '../../../utils/constants';
+import { Colors, MARGIN_CATEGORY_ITEM, NUM_CATEGORY_PER_ROW } from '../../../utils/constants';
 import TextCustom from '../../../components/TextCustom';
+import {  CategoryItemProps } from '../../../types';
 
-type CategoryItemProps = {
-	data: Category;
-	index: number;
-	onPress?: (data: Category) => void;
-	isPicked: boolean;
-};
 
-export const MARGIN_CATEGORY_ITEM = 8;
 
-const CategoryItem: React.FC<CategoryItemProps> = props => {
+
+const CategoryItem = ({ data, index, onPress, isPicked }: CategoryItemProps) => {
 	const dimension = useWindowDimensions();
-	const category = props.data;
-
 	const categoryWidth =
 		(dimension.width -
 			screenStyles.linear.paddingHorizontal * 2 -
 			MARGIN_CATEGORY_ITEM * (NUM_CATEGORY_PER_ROW - 1)) /
 		NUM_CATEGORY_PER_ROW;
 
-	const onPress = () => props?.onPress?.(props?.data);
+	const handlePress = () => onPress?.(data);
 
 	return (
 		<TouchableOpacity
 			style={[
 				styles.wrapper,
 				{
-					marginLeft: props.index ? MARGIN_CATEGORY_ITEM : 0,
+					marginLeft: index ? MARGIN_CATEGORY_ITEM : 0,
 					width: categoryWidth,
 				},
 			]}
-			onPress={onPress}
+			onPress={handlePress}
 		>
 			<LinearGradient
 				colors={
-					props?.isPicked
+					isPicked
 						? ['rgba(138,50,169,1)', 'rgba(138,0,255,1)']
 						: ['rgba(0,0,0,1)', 'rgba(0,0,0,1)']
 				}
 				useAngle
 				angle={45}
 				locations={[0, 0.6]}
-				style={[styles.background]}
+				style={styles.background}
 			>
 				<TextCustom size="medium" style={styles.title}>
-					{category?.name}
+					{data?.name}
 				</TextCustom>
 			</LinearGradient>
 		</TouchableOpacity>
@@ -60,6 +51,7 @@ const CategoryItem: React.FC<CategoryItemProps> = props => {
 };
 
 export default CategoryItem;
+
 
 const styles = StyleSheet.create({
 	wrapper: {

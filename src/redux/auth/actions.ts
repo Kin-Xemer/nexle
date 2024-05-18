@@ -6,7 +6,7 @@ export const signUpAndSignIn = createAsyncThunk(
 	'auth/signUpAndSignIn',
 	async (payload: SignupFormProps & SignupOpts) => {
 		await signUp(payload);
-		const auth = signIn(payload);
-		return auth;
+		const user = await signIn(payload);
+		return user;
 	},
 );

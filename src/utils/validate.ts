@@ -1,4 +1,4 @@
-import { EMAIL_REGEX, PASSWORD_MAX_LENGTH, PASSWORD_MIN_LENGTH } from "./constants";
+import { EMAIL_REGEX, PASSWORD_MAX_LENGTH, PASSWORD_MIN_LENGTH } from './constants';
 
 export const validateField = (field: string, value: string) => {
 	switch (field) {
@@ -15,6 +15,7 @@ export const validateField = (field: string, value: string) => {
 				: value.length < PASSWORD_MIN_LENGTH || value.length > PASSWORD_MAX_LENGTH
 				? 'The password must be between 6-18 characters.'
 				: '';
-		default: return ""
+		default:
+			return '';
 	}
 };

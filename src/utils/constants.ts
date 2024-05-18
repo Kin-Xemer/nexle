@@ -7,6 +7,8 @@ export const REGEX_CONTAIN_UPPER = /[A-Z]/;
 export const REGEX_CONTAIN_LOWER = /[a-z]/;
 export const REGEX_CONTAIN_DIGIT = /\d/;
 export const REGEX_CONTAIN_SPECIAL_CHAR = /\W/;
+export const NUM_CATEGORY_PER_ROW = 3;
+export const MARGIN_CATEGORY_ITEM = 8;
 
 export const Colors = {
   PRIMARY: '#647FFF',

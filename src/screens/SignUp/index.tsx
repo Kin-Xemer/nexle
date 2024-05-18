@@ -1,8 +1,6 @@
-import { useNavigation } from '@react-navigation/native';
 import React, { useEffect, useRef, useState } from 'react';
 import { Dimensions, Image, StatusBar, TouchableOpacity, View } from 'react-native';
 import Toast from 'react-native-toast-message';
-import Images from '../../assets';
 import Background from '../../components/Background';
 import Input from '../../components/Input';
 import Loading from '../../components/Loading';
@@ -13,7 +11,6 @@ import { signUpAndSignIn } from '../../redux/auth/actions';
 import { useAppDispatch } from '../../redux/store';
 import { FetchStatus, SignupFormProps, SignupFormErrProps } from '../../types';
 import styles from './styles';
-import useForm from './useForm';
 import { Colors, PASSWORD_MAX_LENGTH } from '../../utils/constants';
 import TextCustom from '../../components/TextCustom';
 import { evaluatePassword } from '../../utils/evaluatePassword';
@@ -21,6 +18,7 @@ import PasswordLevelLine from '../../components/PaswordLevelLine';
 import ErrorField from '../../components/ErrorField';
 import image from '../../assets';
 import { validateField } from '../../utils/validate';
+import { useNavigation } from '@react-navigation/native';
 const { width, height } = Dimensions.get('window');
 const SignInScreen = () => {
 	const dispatch = useAppDispatch();
@@ -46,6 +44,7 @@ const SignInScreen = () => {
 			setStatus('loading');
 			await dispatch(signUpAndSignIn(signupForm)).unwrap();
 			navigation.navigate('Category');
+
 			Toast.show({
 				text1: 'Done!',
 				text2: 'Sign in success!',
@@ -58,22 +57,24 @@ const SignInScreen = () => {
 				text2: 'Something went wrong!',
 			});
 			setStatus('error');
+			// console.log(error)
 		}
 	};
 
 	useEffect(() => {
 		setIsError(signupErrForm?.emailError !== '' || signupErrForm?.passwordError !== '');
-	}, [signupForm]);signupErrForm;
+	}, [signupForm]);
+	signupErrForm;
 
 	const handleOnchange = (field: string, value: string) => {
 		setSignupForm((oldValue: SignupFormProps) => ({
 			...oldValue,
 			[field]: value,
 		}));
-    setSignupErrForm((oldValue: SignupFormErrProps) => ({
+		setSignupErrForm((oldValue: SignupFormErrProps) => ({
 			...oldValue,
 			[`${field}Error`]: validateField(field, value),
-		}));  
+		}));
 	};
 	return (
 		<>

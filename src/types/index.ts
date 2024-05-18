@@ -1,8 +1,8 @@
 export type FetchStatus = 'success' | 'error' | 'loading' | 'new';
 export type ListState<I> = {
-  data: I[];
-  status: FetchStatus;
-  message: string;
+	data: I[];
+	status: FetchStatus;
+	message: string;
 };
 export interface SignupFormProps {
 	email: string;
@@ -13,21 +13,21 @@ export interface SignupFormErrProps {
 	passwordError: string;
 }
 export type SignupOpts =
-	 Partial<{
+	| Partial<{
 			firstName: string;
 			lastName: string;
 	  }>
 	| undefined;
 
-export type InitState = {
+export interface InitState {
 	user?: User;
 	accessToken: string;
 	refreshToken: string;
-};
+}
 export interface SignInPayload {
 	email: string;
 	password: string;
-};
+}
 export interface User {
 	id: number;
 	createdAt: string;
@@ -41,4 +41,21 @@ export interface SigninResponse {
 	user: User;
 	accessToken: string;
 	refreshToken: string;
-};
+}
+
+export interface Category {
+	id: number;
+	createdAt: string;
+	updatedAt: string;
+	name: string;
+}
+
+export interface CategoryState extends ListState<Category> {
+	pickedList: Category[];
+}
+export interface CategoryItemProps {
+	data: Category;
+	index: number;
+	onPress?: (data: Category) => void;
+	isPicked: boolean;
+}

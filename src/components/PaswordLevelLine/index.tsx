@@ -1,9 +1,7 @@
 /* eslint-disable no-fallthrough */
-import { useMemo } from 'react';
 import React from 'react';
 import { StyleSheet, View, ViewProps } from 'react-native';
 import { Colors } from '../../utils/constants';
-import TextCustom from '../TextCustom';
 import { getLevelEvaluate } from '../../utils/evaluatePassword';
 
 const PasswordLevelLine = ({ level }: any) => {

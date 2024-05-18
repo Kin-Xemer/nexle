@@ -1,17 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { ListState } from '../../types';
+import { CategoryState, ListState } from '../../types';
 import { getCategoryList } from './actions';
 
-export type Category = {
-	id: number;
-	createdAt: string;
-	updatedAt: string;
-	name: string;
-};
-
-export type CategoryState = ListState<Category> & {
-	pickedList: Category[];
-};
 
 const INITIAL_STATE: CategoryState = {
 	data: [],

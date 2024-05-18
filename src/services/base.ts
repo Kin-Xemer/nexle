@@ -1,30 +1,34 @@
-import { create } from 'apisauce';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import {create} from 'apisauce';
 
 const BaseSauce = create({
-	baseURL: 'http://streaming.nexlesoft.com:3001',
-	headers: {
-		'Content-Type': 'application/json',
-	},
+  baseURL: 'http://streaming.nexlesoft.com:3001',
+  headers: {
+    'Content-Type': 'application/json',
+  },
 });
 
 const PrivateSauce = create({
-	baseURL: 'http://streaming.nexlesoft.com:3001',
-	headers: {
-		'Content-Type': 'application/json',
-	},
+  baseURL: 'http://streaming.nexlesoft.com:3001',
+  headers: {
+    'Content-Type': 'application/json',
+  },
 });
 
 let store: any = null;
 export const initStore = (reduxStore: any) => {
-	store = reduxStore;
+  store = reduxStore;
 };
 
-export const PublicApi = BaseSauce.axiosInstance;
-export const PrivateApi = PrivateSauce.axiosInstance;
+const PublicApi = BaseSauce.axiosInstance;
+const PrivateApi = PrivateSauce.axiosInstance;
 
 PrivateApi.interceptors.request.use(async config => {
-	const accessToken = store?.getStates?.()?.auth?.accessToken ?? '';
-	config.headers.authorization = accessToken;
-	return config;
+   const accessToken = await AsyncStorage.getItem('accessToken');
+		if (accessToken) {
+			config.headers.Authorization = `Bearer ${accessToken}`;
+		}
+  return config;
 });
 
+export {PublicApi, PrivateApi};

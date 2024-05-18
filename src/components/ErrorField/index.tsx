@@ -39,8 +39,8 @@ const styles = StyleSheet.create({
 		marginTop: 14,
 		justifyContent: 'space-between',
 	},
-    passwordStyle :{
-        flexDirection: 'row',
-        justifyContent:'space-between'
-    }
+	passwordStyle: {
+		flexDirection: 'row',
+		justifyContent: 'space-between',
+	},
 });

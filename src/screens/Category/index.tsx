@@ -8,42 +8,39 @@ import Screen from '../../components/Screen';
 import ButtonBack from '../../components/Screen/ButtonBack';
 import Header from '../../components/Screen/Header';
 import { getCategoryList } from '../../redux/category/actions';
-import { Category, CategoryActions } from '../../redux/category/slice';
+import { CategoryActions } from '../../redux/category/slice';
 import { useAppDispatch, useAppSelector } from '../../redux/store';
-import CategoryItem from './components/CategoryItem';
+import CategoryItem from './CategoryItem';
 import styles from './styles';
-import useCategoryRowList from './useCategoryRowList';
 import Toast from 'react-native-toast-message';
 import TextCustom from '../../components/TextCustom';
 import image from '../../assets';
+import { Category } from '../../types';
+import getRowListCategory from '../../utils/getRowListCategory';
 
 const CategoryScreen = () => {
 	const navigation = useNavigation<any>();
 	const dimension = useWindowDimensions();
 	const dispatch = useAppDispatch();
 	const safeInset = useSafeAreaInsets();
-
 	const categoryList = useAppSelector(state => state.category.data);
 	const pickedList = useAppSelector(state => state.category.pickedList);
-	const rowList = useCategoryRowList(categoryList);
 	const status = useAppSelector(state => state.category.status);
+	const rowList = getRowListCategory(categoryList);
 
-	const checkPickedCategory = (category: Category) => {
-		const pickedIndex = pickedList?.findIndex?.(picked => picked?.id === category?.id);
-		return pickedIndex > -1;
-	};
+	const checkPickedCategory = (category: Category) =>
+		!!pickedList?.find(picked => picked?.id === category?.id);
 
 	const onPressCategory = (category: Category) => {
-		const clone = JSON.parse(JSON.stringify(pickedList)) as Category[];
-		const pickedIndex = clone?.findIndex?.(picked => picked?.id === category?.id);
+		const clone = [...pickedList];
+		const pickedIndex = clone.findIndex(picked => picked?.id === category?.id);
 		if (pickedIndex < 0) {
 			dispatch(CategoryActions.setPickedList([...clone, category]));
-			return;
+		} else {
+			clone.splice(pickedIndex, 1);
+			dispatch(CategoryActions.setPickedList(clone));
 		}
-		clone.splice(pickedIndex, 1);
-		dispatch(CategoryActions.setPickedList(clone));
 	};
-
 	useEffect(() => {
 		(async () => {
 			try {
@@ -62,7 +59,6 @@ const CategoryScreen = () => {
 				});
 			}
 		})();
-		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
 	return (

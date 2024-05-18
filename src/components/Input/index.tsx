@@ -1,31 +1,25 @@
-import React, {
-  forwardRef,
-  useImperativeHandle,
-  useMemo,
-  useRef,
-  useState,
-} from 'react';
+import React, { forwardRef, useImperativeHandle, useMemo, useRef, useState } from 'react';
 import {
-  Animated,
-  Easing,
-  Image,
-  StyleSheet,
-  TextInput,
-  TextInputProps,
-  TouchableOpacity,
-  TouchableWithoutFeedback,
-  View,
+	Animated,
+	Easing,
+	Image,
+	StyleSheet,
+	TextInput,
+	TextInputProps,
+	TouchableOpacity,
+	TouchableWithoutFeedback,
+	View,
 } from 'react-native';
-import {BLUR_VALUE, Colors, FOCUS_VALUE} from '../../utils/constants';
+import { BLUR_VALUE, Colors, FOCUS_VALUE } from '../../utils/constants';
 import TextCustom from '../TextCustom';
 import image from '../../assets';
 
 interface InputProps extends TextInputProps {
-  title: string;
-  color?: string;
-  bottomLine?: React.ReactNode;
-  isPasword?: boolean;
-};
+	title: string;
+	color?: string;
+	bottomLine?: React.ReactNode;
+	isPasword?: boolean;
+}
 
 const Input = forwardRef((props: InputProps, ref: any) => {
 	const [isPasswordHidden, setIsPasswordHidden] = useState(props.isPasword);
@@ -108,25 +102,25 @@ const Input = forwardRef((props: InputProps, ref: any) => {
 export default Input;
 
 const styles = StyleSheet.create({
-  inputWrapper: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginTop: 15,
-    marginBottom: 12,
-  },
-  input: {
-    flex: 1,
-    fontSize: 16,
-    fontFamily: 'Lato Regular',
-    padding: 0,
-  },
-  eye: {
-    marginLeft: 8,
-    width: 24,
-    height: 24,
-    resizeMode: 'contain',
-  },
-  bottomLine: {
-    borderBottomWidth: 1,
-  },
+	inputWrapper: {
+		flexDirection: 'row',
+		alignItems: 'center',
+		marginTop: 15,
+		marginBottom: 12,
+	},
+	input: {
+		flex: 1,
+		fontSize: 16,
+		fontFamily: 'Lato Regular',
+		padding: 0,
+	},
+	eye: {
+		marginLeft: 8,
+		width: 24,
+		height: 24,
+		resizeMode: 'contain',
+	},
+	bottomLine: {
+		borderBottomWidth: 1,
+	},
 });

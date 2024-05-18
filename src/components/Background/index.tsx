@@ -1,16 +1,15 @@
 import React from 'react';
 import {Image, ImageProps, StyleSheet, useWindowDimensions} from 'react-native';
 
-type BackgroundProps = ImageProps;
 
-const Background: React.FC<BackgroundProps> = props => {
+const Background = (props: any) => {
   const dimension = useWindowDimensions();
   const imageSize = Image.resolveAssetSource(props.source);
   const scaledHeight = (dimension.width / imageSize.width) * imageSize.height;
 
   return (
     <Image
-      style={[styles.image, {height: scaledHeight}, props?.style]}
+      style={[styles.image, { height: scaledHeight }, props.style]}
       {...props}
     />
   );
